@@ -1,33 +1,27 @@
-import * as uuid from "uuid"
-import aws from 'aws-sdk'
+import * as uuid from "uuid";
+import aws from 'aws-sdk';
+import respond from './util/httpResponse';
 
+const dynamoClient = new aws.DynamoDB.DocumentClient();
 
-const ddb = new aws.DynamoDB.DocumentClient()
-
-export async function handler(event, context) {
-    const data = JSON.parse(event.body)
-
+export const handler = async (event, context) => {
+    const { linkNotes, attachment, questions } = JSON.parse(event.body);
     const params = {
-        TableName : process.env.tableName,
+        TableName: process.env.TableName,
         Item: {
             userId: "123A",
             linkId: uuid.v1(),
-            content: data.content,
-            attachment: data.attachment,
+            linkNotes,
+            attachment,
+            questions,
             creationDate: Date.now()
         },
-    }
-
+    };
     try {
-        await ddb.put(params).promise()
-        return {
-            statusCode: 200,
-            body: JSON.stringify(params.Item),
-        }
+        //call returns empty object on successful case
+        await dynamoClient.put(params).promise();
+        return respond(200, params.Item.linkId );
     } catch (e) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify( { error: e.message })
-        }
+        return respond(500, { error: e.message });
     }
-}
+};

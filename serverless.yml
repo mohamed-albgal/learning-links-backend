@@ -23,6 +23,8 @@ provider:
   #environment:
   #  SAMPLE_ENV_VAR: ${env:SAMPLE_ENV_VAR}
 
+  environment:
+    TableName: links
 
   iamRoleStatements:
     - Effect: Allow
@@ -43,12 +45,18 @@ functions:
       - http:
           path: links
           method: post
-  # read:
-  #   handler: read.handler
-  #   events:
-  #     - http:
-  #         path: links
-  #         method: get
+  read:
+    handler: read.handler
+    events:
+      - http:
+          path: links/{linkId}
+          method: get
+#  read:
+#     handler: read.handler
+#     events:
+#       - http:
+#           path: links/
+#           method: get
   # delete:
   #   handler: delete.handler
   #   events:
