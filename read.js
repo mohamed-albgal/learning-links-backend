@@ -16,9 +16,9 @@ export const handler = async (event, context) => {
         if (!result.Item) {
             throw new Error( `No item for ${linkId}`);
         }
-        return result.Item;
+        return respond(200,result.Item);
     }catch(e){
-        return respond(500, e.message);
+         return respond(500, e.message);
     }
 };
 
