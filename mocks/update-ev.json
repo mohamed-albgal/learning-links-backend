@@ -1,6 +1,6 @@
 {
-    "pathParameters": "{ \"linkId\":\"default#1625944848010\"}",
-    "body" : "{\"linkNotes\":\"updated content works \", \"userId\":\"123A\"}",
+    "pathParameters": "{ \"linkId\":\"default#1625970895353\"}",
+    "body" : "{\"linkNotes\":\"updated content works, updated notes \"}",
     "requestContext": {
         "identity": {
             "cognitoIdentityId": "USER-SUB-1234"
