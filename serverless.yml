@@ -17,9 +17,7 @@ provider:
   region: us-east-1
   # To load environment variables externally
   # rename env.example to .env and uncomment
-  # the following line. Also, make sure to not
-  # commit your .env.
-  #
+  # the following line. 
   #environment:
   #  SAMPLE_ENV_VAR: ${env:SAMPLE_ENV_VAR}
 
@@ -40,28 +38,34 @@ provider:
 
 functions:
   create:
-    handler: create.handler
+    handler: handlers/create.handler
     events:
       - http:
           path: links
           method: post
   read:
-    handler: read.handler
+    handler: handlers/read.handler
     events:
       - http:
           path: links/{linkId}
           method: get
-#  read:
-#     handler: read.handler
-#     events:
-#       - http:
-#           path: links/
-#           method: get
-  # delete:
-  #   handler: delete.handler
-  #   events:
-  #     - http:
-  #         path: links
-  #         method: delete
+  readAll:
+    handler: handlers/readAll.handler
+    events:
+      - http:
+          path: links/{userId}
+          method: get
+  update:
+    handler: handlers/update.handler
+    events:
+      - http:
+          path: links/{linkId}
+          method: put
+  delete:
+    handler: handlers/delete.handler
+    events:
+      - http:
+          path: links/{linkId}
+          method: delete
   
 

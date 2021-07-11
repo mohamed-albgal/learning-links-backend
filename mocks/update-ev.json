@@ -1,0 +1,4 @@
+{
+    "pathParameters": "{ \"linkId\":\"2ae95ec0-e1cb-11eb-9224-87d7dbc7089c\"}",
+    "body" : "{\"linkNotes\":\"updated content via update method\", \"userId\":\"123A\"}"
+}
