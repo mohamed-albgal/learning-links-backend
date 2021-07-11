@@ -43,29 +43,34 @@ functions:
       - http:
           path: links
           method: post
+          authorizer: aws_iam
   read:
     handler: handlers/read.handler
     events:
       - http:
           path: links/{linkId}
           method: get
+          authorizer: aws_iam
   readAll:
     handler: handlers/readAll.handler
     events:
       - http:
-          path: links/{userId}
+          path: link
           method: get
+          authorizer: aws_iam
   update:
     handler: handlers/update.handler
     events:
       - http:
           path: links/{linkId}
           method: put
+          authorizer: aws_iam
   delete:
     handler: handlers/delete.handler
     events:
       - http:
           path: links/{linkId}
           method: delete
+          authorizer: aws_iam
   
 

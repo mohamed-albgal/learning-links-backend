@@ -1,4 +1,9 @@
 {
     "pathParameters": "{ \"linkId\":\"default#1625944848010\"}",
-    "body" : "{\"linkNotes\":\"updated content with new sk\", \"userId\":\"123A\"}"
+    "body" : "{\"linkNotes\":\"updated content works \", \"userId\":\"123A\"}",
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
 }

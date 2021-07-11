@@ -1,3 +1,8 @@
 {
-  "body": "{\"linkNotes\":\"hello world\", \"attachment\":\"help-me.png\", \"questions\":[{\"question\":\"Whats your name\", \"answer\":\"Mohamed Albgal\"}]}"
+  "body":"{\"linkNotes\":\"seeds\", \"attachment\":\"help-me.png\", \"questions\":[{\"question\":\"Whats your name\", \"answer\":\"Mohamed Albgal\"}]}",
+  "requestContext":{
+    "identity":{
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
 }

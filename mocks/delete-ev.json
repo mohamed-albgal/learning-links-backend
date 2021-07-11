@@ -1,4 +1,9 @@
 {
-    "pathParameters": "{ \"linkId\":\"97fbd510-e1c6-11eb-930f-dd84c63ded70\"}",
-    "body" : "{\"userId\":\"123A\"}"
+    "pathParameters": "{ \"linkId\":\"default#1625968534749\"}",
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
+    
 }
