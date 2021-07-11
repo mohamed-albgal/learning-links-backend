@@ -6,7 +6,7 @@ const dynamoClient = new aws.DynamoDB.DocumentClient();
 export const handler = async (event, context) =>  {
     const data = JSON.parse(event.body);
     const { linkId } = JSON.parse(event.pathParameters);
-    const { userId } = data        
+    const { userId } = data;
     if (!userId){
         return respond(400, {error:"UserId not present in request body"});
     };
