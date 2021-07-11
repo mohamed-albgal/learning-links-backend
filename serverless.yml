@@ -43,6 +43,7 @@ functions:
       - http:
           path: links
           method: post
+          cors: true
           authorizer: aws_iam
   read:
     handler: handlers/read.handler
@@ -50,13 +51,15 @@ functions:
       - http:
           path: links/{linkId}
           method: get
+          cors: true
           authorizer: aws_iam
   readAll:
     handler: handlers/readAll.handler
     events:
       - http:
-          path: link
+          path: links
           method: get
+          cors: true
           authorizer: aws_iam
   update:
     handler: handlers/update.handler
@@ -64,6 +67,7 @@ functions:
       - http:
           path: links/{linkId}
           method: put
+          cors: true
           authorizer: aws_iam
   delete:
     handler: handlers/delete.handler
@@ -71,6 +75,25 @@ functions:
       - http:
           path: links/{linkId}
           method: delete
+          cors: true
           authorizer: aws_iam
-  
+Resources:
+  GatewayResponseDefault4XX:
+    Type: 'AWS::ApiGateway::GatewayResponse'
+    Properties:
+      ResponseParameters:
+         gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+         gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+      ResponseType: DEFAULT_4XX
+      RestApiId:
+        Ref: 'ApiGatewayRestApi'
+  GatewayResponseDefault5XX:
+    Type: 'AWS::ApiGateway::GatewayResponse'
+    Properties:
+      ResponseParameters:
+         gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+         gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+      ResponseType: DEFAULT_5XX
+      RestApiId:
+        Ref: 'ApiGatewayRestApi'  
 
