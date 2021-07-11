@@ -1,15 +1,20 @@
 import aws from 'aws-sdk';
-import respond from '../util/httpResponse';
+import {respond, getAdjustedTimestamp} from '../util/util';
 
 const dynamoClient = new aws.DynamoDB.DocumentClient();
 
 export const handler = async (event, context) =>  {
     const data = JSON.parse(event.body);
     const { linkId } = JSON.parse(event.pathParameters);
-    const { userId } = data;
+    const { userId } = data        
+    if (!userId){
+        return respond(400, {error:"UserId not present in request body"});
+    };
     const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment"};
-    const [expressionString, attributeValues] = getExpressionInfo(data,attributes);
-
+    let [expressionString, attributeValues] = getExpressionInfo(data,attributes);
+    //update the modification time after every touch
+    expressionString += ", modificationDate = :md";
+    attributeValues[":md"] = getAdjustedTimestamp();
     const params = {
         TableName: process.env.TableName,
         Key: {
@@ -22,17 +27,12 @@ export const handler = async (event, context) =>  {
         //add a condition to ensure not already equal, to save on write costs (? confirm)
         // ReturnValues: "ALL_NEW",
     };
-
     try {
-        if (!userId){
-            throw new Error("UserId not present in request body");
-        }
         const result = await dynamoClient.update(params).promise();
         return respond(200, result.Attributes);
     }catch (e){
         return respond(500, { error: e.message});
     }
-
 };
 
 //only want to update the keys indicated in the request body
@@ -41,7 +41,7 @@ const getExpressionInfo = (requestBody, attributes) => {
     let expressionValues = {};
     //for any property that is in the body, add it to the expression to update
     // and translate the mapping to the value from the request
-    for (let [ abbrev, property ]  of Object.entries(attributes)) {
+    for (let [ abbrev, property ] of Object.entries(attributes)) {
         if (requestBody.hasOwnProperty(property)){
             expressions.push(`${property} = ${abbrev}`);
             expressionValues[abbrev] = requestBody[property];

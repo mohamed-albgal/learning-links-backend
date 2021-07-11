@@ -1,27 +1,31 @@
-import * as uuid from "uuid";
 import aws from 'aws-sdk';
-import respond from '../util/httpResponse';
+import { respond, getAdjustedTimestamp } from '../util/util';
 
 const dynamoClient = new aws.DynamoDB.DocumentClient();
 
 export const handler = async (event, context) => {
-    const { linkNotes, attachment, questions } = JSON.parse(event.body);
+    let { linkNotes, attachment, questions, topic } = JSON.parse(event.body);
+    topic = topic || "default";
+    //date without adjusting return UTC time, must adjust for tz difference
+    const timestamp = getAdjustedTimestamp();
     const params = {
         TableName: process.env.TableName,
         Item: {
             userId: "123A",
-            linkId: uuid.v1(),
+            linkId: `${topic}#${timestamp}`,
             linkNotes,
             attachment,
             questions,
-            creationDate: Date.now()
+            modificationDate: timestamp,
+            topic
         },
     };
     try {
         //call returns empty object on successful case
         await dynamoClient.put(params).promise();
-        return respond(200, params.Item.linkId );
+        return respond(200, params.Item );
     } catch (e) {
         return respond(500, { error: e.message });
     }
 };
+

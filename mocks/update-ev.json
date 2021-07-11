@@ -1,4 +1,4 @@
 {
-    "pathParameters": "{ \"linkId\":\"2ae95ec0-e1cb-11eb-9224-87d7dbc7089c\"}",
-    "body" : "{\"linkNotes\":\"updated content via update method\", \"userId\":\"123A\"}"
+    "pathParameters": "{ \"linkId\":\"default#1625944848010\"}",
+    "body" : "{\"linkNotes\":\"updated content with new sk\", \"userId\":\"123A\"}"
 }

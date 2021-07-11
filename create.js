@@ -1,6 +1,6 @@
 import * as uuid from "uuid";
 import aws from 'aws-sdk';
-import respond from './util/httpResponse';
+import respond from './util/util';
 
 const dynamoClient = new aws.DynamoDB.DocumentClient();
 
