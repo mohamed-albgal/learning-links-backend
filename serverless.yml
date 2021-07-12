@@ -45,7 +45,6 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
-          cors: true
   read:
     handler: handlers/read.handler
     events:
