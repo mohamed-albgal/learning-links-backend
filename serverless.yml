@@ -44,6 +44,7 @@ functions:
           path: links
           method: post
           authorizer: aws_iam
+          cors: true
   read:
     handler: handlers/read.handler
     events:
@@ -51,6 +52,7 @@ functions:
           path: links/{linkId}
           method: get
           authorizer: aws_iam
+          cors: true
   readAll:
     handler: handlers/readAll.handler
     events:
@@ -58,6 +60,7 @@ functions:
           path: link
           method: get
           authorizer: aws_iam
+          cors: true
   update:
     handler: handlers/update.handler
     events:
@@ -65,6 +68,7 @@ functions:
           path: links/{linkId}
           method: put
           authorizer: aws_iam
+          cors: true
   delete:
     handler: handlers/delete.handler
     events:
@@ -72,6 +76,7 @@ functions:
           path: links/{linkId}
           method: delete
           authorizer: aws_iam
+          cors: true
 
 resources:
   # API Gateway Errors

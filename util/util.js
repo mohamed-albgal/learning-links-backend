@@ -1,7 +1,11 @@
 export const respond = (status, body) =>  {
     return {
         status,
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+        },
     };
 };
 
