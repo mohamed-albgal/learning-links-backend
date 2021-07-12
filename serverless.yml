@@ -1,7 +1,7 @@
 # NOTE: update this with your service name
 service: link-list-api
 
-# Create an optimized package for our functions 
+# Create an optimized package for the functions (for cold starts)
 package:
   individually: true
 
@@ -72,5 +72,7 @@ functions:
           path: links/{linkId}
           method: delete
           authorizer: aws_iam
-  
 
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
