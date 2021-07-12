@@ -1,7 +1,7 @@
 # NOTE: update this with your service name
 service: link-list-api
 
-# Create an optimized package for our functions 
+# Create an optimized package for the functions (for cold starts)
 package:
   individually: true
 
@@ -45,6 +45,7 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+          cors: true
   read:
     handler: handlers/read.handler
     events:
@@ -77,23 +78,6 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
-Resources:
-  GatewayResponseDefault4XX:
-    Type: 'AWS::ApiGateway::GatewayResponse'
-    Properties:
-      ResponseParameters:
-         gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-         gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-      ResponseType: DEFAULT_4XX
-      RestApiId:
-        Ref: 'ApiGatewayRestApi'
-  GatewayResponseDefault5XX:
-    Type: 'AWS::ApiGateway::GatewayResponse'
-    Properties:
-      ResponseParameters:
-         gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-         gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-      ResponseType: DEFAULT_5XX
-      RestApiId:
-        Ref: 'ApiGatewayRestApi'  
-
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}

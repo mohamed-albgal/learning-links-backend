@@ -6,10 +6,6 @@ const dynamoClient = new aws.DynamoDB.DocumentClient();
 export const handler = async (event, context) =>  {
     const data = JSON.parse(event.body);
     const { linkId } = JSON.parse(event.pathParameters);
-    const userId = event.requestContext.identity.cognitoIdentityId;
-    if (!userId){
-        return respond(400, {error:"UserId not present in request body"});
-    };
     const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment"};
     let [expressionString, attributeValues] = getExpressionInfo(data,attributes);
     //update the modification time after each touch
@@ -18,7 +14,7 @@ export const handler = async (event, context) =>  {
     const params = {
         TableName: process.env.TableName,
         Key: {
-            userId,
+            userId: event.requestContext.identity.cognitoIdentityId,
             linkId
         },
         UpdateExpression: expressionString,
