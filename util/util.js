@@ -1,7 +1,7 @@
-export const respond = (status, body) =>  {
+export const respond = (statusCode, data) =>  {
     return {
-        status,
-        body: JSON.stringify(body),
+        statusCode,
+        body: JSON.stringify(data),
         headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
