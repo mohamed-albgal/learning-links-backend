@@ -1,4 +1,3 @@
-# NOTE: update this with your service name
 service: link-list-api
 
 # Create an optimized package for the functions (for cold starts)
