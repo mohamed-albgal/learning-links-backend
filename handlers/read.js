@@ -18,7 +18,7 @@ export const handler = async (event, context) => {
         }
         return respond(200,result.Item);
     }catch(e){
-         return respond(500, e.message);
+        return respond(500, e.message);
     }
 };
 
