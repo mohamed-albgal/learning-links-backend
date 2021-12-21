@@ -5,7 +5,7 @@ const dynamoClient = new aws.DynamoDB.DocumentClient();
 
 
 export const handler = async (event, context) => {
-    const { linkId } = JSON.parse(event.pathParameters);
+    const { linkId } = event.pathParameters;
     const params = {
         TableName: process.env.TableName,
         Key:{

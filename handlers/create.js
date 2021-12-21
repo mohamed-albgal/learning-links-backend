@@ -1,3 +1,4 @@
+import * as uuid from 'uuid';
 import aws from 'aws-sdk';
 import { respond, getAdjustedTimestamp } from '../util/util';
 
@@ -12,7 +13,7 @@ export const handler = async (event, context) => {
         TableName: process.env.TableName,
         Item: {
             userId: event.requestContext.identity.cognitoIdentityId,
-            linkId: `${topic}#${timestamp}`,
+            linkId:  uuid.v1(),
             linkNotes,
             attachment,
             questions,
