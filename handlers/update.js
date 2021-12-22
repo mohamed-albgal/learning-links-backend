@@ -6,7 +6,8 @@ const dynamoClient = new aws.DynamoDB.DocumentClient();
 export const handler = async (event, context) =>  {
     const data = JSON.parse(event.body);
     let { linkId } = event.pathParameters;
-    const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment"};
+    //possible values in the body: linkNotes, questions, goals, priorities, linkTitle, priority, topic
+    const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment", ":gl" : "goals", "pr": "priority", "tl":"title", "tp":"topic" };
     let [expressionString, attributeValues] = getExpressionInfo(data,attributes);
     //update the modification time after each touch
     expressionString += ", modificationDate = :md";
@@ -54,4 +55,19 @@ const getExpressionInfo = (requestBody, attributes) => {
  * note the values come from the http request.
  * the issue i was having was only needing to partially update an item's attributes (instead of all of its attributes)
  * i needed to see what was in the req body vs what _could_ be updated and get that intersection to avoid updating things to null!
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ *  we get { linkNote: "dfs", questions: "dfs", attachment: "dfs", goals: "dfs", priority: "dfs", goals: "dfs", linkTitle, "isdf", "topic"}
+ * 
+ * ln, qu, at, gl, pr, lt, 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
+
