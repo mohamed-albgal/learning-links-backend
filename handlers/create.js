@@ -5,7 +5,7 @@ import { respond, getAdjustedTimestamp } from '../util/util';
 const dynamoClient = new aws.DynamoDB.DocumentClient();
 
 export const handler = async (event, context) => {
-    let { linkNotes, goals, title, priority, attachment, questions, topic } = JSON.parse(event.body);
+    let { linkNotes, goals, title, priority, attachment, questions, topic, sourceUrl } = JSON.parse(event.body);
     //date without adjusting return UTC time, must adjust for tz difference
     const timestamp = getAdjustedTimestamp();
     const params = {
@@ -17,6 +17,7 @@ export const handler = async (event, context) => {
             title,
             priority,
             goals,
+            sourceUrl,
             attachment,
             questions,
             modificationDate: timestamp,

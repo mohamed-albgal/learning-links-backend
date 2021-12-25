@@ -7,7 +7,7 @@ export const handler = async (event, context) =>  {
     const data = JSON.parse(event.body);
     let { linkId } = event.pathParameters;
     //possible values in the body: linkNotes, questions, goals, priorities, linkTitle, priority, topic
-    const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment", ":gl" : "goals", ":pr": "priority", ":tl":"title", ":tp":"topic" };
+    const attributes = { ":ln" : "linkNotes", ":qs": "questions", ":at": "attachment", ":sr": "sourceUrl", ":gl" : "goals", ":pr": "priority", ":tl":"title", ":tp":"topic" };
     let [expressionString, expressionValues] = getExpressionInfo(data,attributes);
     const params = {
         TableName: process.env.TableName,
